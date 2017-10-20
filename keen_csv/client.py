@@ -1,6 +1,5 @@
 from keen import KeenClient
-
-from keen_csv.response import KeenCSVResponse
+from keen_csv.container import KeenCSV
 
 class KeenCSVClient(KeenClient):
     wrapped_methods = [ 'count',
@@ -26,6 +25,6 @@ class KeenCSVClient(KeenClient):
     def _wrap(self, attribute):
         def _wrapper(*args, **kwargs):
             raw_response = attribute(*args, **kwargs)
-            keen_csv_response = KeenCSVResponse(raw_response)
+            keen_csv_response = KeenCSV(raw_response)
             return keen_csv_response.generate_csv()
         return _wrapper

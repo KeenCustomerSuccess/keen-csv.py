@@ -1,7 +1,11 @@
 from numbers import Number
 from collections import defaultdict
 
-class KeenCSVResponse(object):
+def to_csv(response):
+    keen_csv = KeenCSV(response)
+    return keen_csv.generate_csv()
+
+class KeenCSV(object):
     def __init__(self, raw_response, delimiter = ',', filteredColumns = None, delimiterSub = '.', nestedDelimiter = '.'):
         self.raw_response    = raw_response
         self.delimiter       = delimiter
