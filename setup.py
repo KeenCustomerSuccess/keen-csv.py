@@ -7,7 +7,7 @@ reqs_file.close()
 
 setup(
     name='keen-csv',
-    version='0.0.1',
+    version='1.0.0',
     install_requires=reqs,
     packages=['keen-csv']
 )
