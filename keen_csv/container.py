@@ -1,8 +1,8 @@
 from numbers import Number
 from collections import defaultdict
 
-def to_csv(response):
-    keen_csv = KeenCSV(response)
+def to_csv(response, **kwargs):
+    keen_csv = KeenCSV(response, **kwargs)
     return keen_csv.generate_csv()
 
 class KeenCSV(object):
@@ -22,7 +22,7 @@ class KeenCSV(object):
 
         for row_index in range(0, result_columns['max_row_index'] + 1, 1):
             csv += "\r\n"
-            csv += ','.join([ self._filter_value(result_columns['columns'][column][row_index]) for column in headers])
+            csv += ','.join([ self._filter_value(result_columns['columns'][column].get(row_index)) for column in headers])
 
         return csv
 
@@ -63,9 +63,11 @@ class KeenCSV(object):
 
     def _filter_value(self, value):
         """Takes a string value, and sanitizes it for CSV"""
+        if value is None:
+            return ''
         return str(value).replace(self.delimiter, self.delimiterSub)
 
-    def _flatten(self, obj, flattened = {}, prefix = ""):
+    def _flatten(self, obj, flattened = None, prefix = ""):
         """Recursively traverses nested lists/dictionaries and flattens them with a delimiter
 
         Arguments:
@@ -75,6 +77,10 @@ class KeenCSV(object):
         flattened -- for recursion use only.
         prefix    -- for recursion use only.
         """
+
+        if flattened is None:
+            flattened = {}
+
         loopable = obj if isinstance(obj, dict) else xrange(len(obj))
         for key in loopable:
             if isinstance(loopable[key], list) or isinstance(loopable[key], dict):
