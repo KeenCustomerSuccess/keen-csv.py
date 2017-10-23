@@ -18,11 +18,11 @@ class KeenCSV(object):
         result_columns = self._generate_result_columns()
         headers = result_columns['columns'].keys()
 
-        csv = ','.join(headers)
+        csv = self.delimiter.join(headers)
 
         for row_index in range(0, result_columns['max_row_index'] + 1, 1):
             csv += "\r\n"
-            csv += ','.join([ self._filter_value(result_columns['columns'][column].get(row_index)) for column in headers])
+            csv += self.delimiter.join([ self._filter_value(result_columns['columns'][column].get(row_index)) for column in headers])
 
         return csv
 
