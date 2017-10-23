@@ -13,7 +13,6 @@ class KeenCSV(object):
         self.nestedDelimiter = nestedDelimiter
         self.filteredColumns = filteredColumns
 
-
     def generate_csv(self):
         """Generates a CSV from the input raw_response"""
         result_columns = self._generate_result_columns()
