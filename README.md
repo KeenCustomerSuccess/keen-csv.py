@@ -31,7 +31,7 @@ Perform a query from the [Keen Python client](https://github.com/keenlabs/KeenCl
   # => item.id,result\n123,240\n...
 ```
 #### Instantiating keen_csv.KeenCSVClient in place of keen.KeenClient
-Follow the query instructions for instantiating and using KeenClient in the [Keen Python client](https://github.com/keenlabs/KeenClient-Python), except using KeenCSVClient. For configuring the CSV output using this method, include an `options` dictionary as the value for the keword argument `csv`
+Follow the instructions for instantiating and querying with KeenClient in the [Keen Python client](https://github.com/keenlabs/KeenClient-Python), except using KeenCSVClient. For configuring the CSV output using this method, include an `options` dictionary as the value for the keword argument `csv`
 
 ```python
   from keen_csv import KeenCSVClient
