@@ -26,7 +26,8 @@ class KeenCSVClient(KeenClient):
     def _wrap(self, attribute):
         """Wraps an instance method and converts its response to CSV"""
         def _wrapper(*args, **kwargs):
+            options = kwargs.pop("csv", {})
             raw_response = attribute(*args, **kwargs)
-            keen_csv_response = KeenCSV(raw_response)
+            keen_csv_response = KeenCSV(raw_response, **options)
             return keen_csv_response.generate_csv()
         return _wrapper
