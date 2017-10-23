@@ -13,7 +13,9 @@ class KeenCSV(object):
         self.nestedDelimiter = nestedDelimiter
         self.filteredColumns = filteredColumns
 
+
     def generate_csv(self):
+        """Generates a CSV from the input raw_response"""
         result_columns = self._generate_result_columns()
         headers = result_columns['columns'].keys()
 
@@ -26,6 +28,7 @@ class KeenCSV(object):
         return csv
 
     def _generate_result_columns(self):
+        """Pivots the raw_response into colums, to account for any data gaps"""
         result_columns = {
             "columns": defaultdict(dict),
             "max_row_index": 0
@@ -60,9 +63,19 @@ class KeenCSV(object):
         return result_columns
 
     def _filter_value(self, value):
+        """Takes a string value, and sanitizes it for CSV"""
         return str(value).replace(self.delimiter, self.delimiterSub)
 
     def _flatten(self, obj, flattened = {}, prefix = ""):
+        """Recursively traverses nested lists/dictionaries and flattens them with a delimiter
+
+        Arguments:
+        obj -- the Dictionary or List of objects to be flattened
+
+        Keyword arguments:
+        flattened -- for recursion use only.
+        prefix    -- for recursion use only.
+        """
         loopable = obj if isinstance(obj, dict) else xrange(len(obj))
         for key in loopable:
             if isinstance(loopable[key], list) or isinstance(loopable[key], dict):

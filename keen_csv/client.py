@@ -16,6 +16,7 @@ class KeenCSVClient(KeenClient):
                       ]
 
     def __getattribute__(self, attr):
+        """Wraps the above wrapped_methods in _wrap"""
         attribute = super(KeenCSVClient, self).__getattribute__(attr)
         if attr in KeenClient.__getattribute__(self, 'wrapped_methods'):
             return(self._wrap(attribute))
@@ -23,6 +24,7 @@ class KeenCSVClient(KeenClient):
             return(attribute)
 
     def _wrap(self, attribute):
+        """Wraps an instance method and converts its response to CSV"""
         def _wrapper(*args, **kwargs):
             raw_response = attribute(*args, **kwargs)
             keen_csv_response = KeenCSV(raw_response)
